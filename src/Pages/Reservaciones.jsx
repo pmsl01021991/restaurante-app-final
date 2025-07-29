@@ -250,19 +250,29 @@ const Reservaciones = () => {
             <div className="modal-overlay">
               <div className="modal-content">
                 <h3>¿Cuántos comensales asistirán?</h3>
-                <input
-                  type="number"
-                  min="1"
-                  max="8"
+                <select
                   value={comensales}
                   onChange={(e) => setComensales(e.target.value)}
-                  placeholder="Número de personas"
                   required
-                />
+                  style={{
+                    width: '100%',
+                    padding: '10px',
+                    fontSize: '16px',
+                    marginTop: '10px',
+                    borderRadius: '5px',
+                    border: '1px solid #ccc',
+                  }}
+                >
+                  <option value="" disabled>Seleccionar número de personas</option>
+                  {Array.from({ length: 8 }, (_, i) => (
+                    <option key={i + 1} value={i + 1}>{i + 1}</option>
+                  ))}
+                </select>
                 {botones('numero', 'confirmar', !!comensales)}
               </div>
             </div>
           )}
+
 
           {mostrarPaso === 'confirmar' && (
             <div className="modal-overlay">
