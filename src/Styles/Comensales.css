@@ -1,5 +1,6 @@
 .comensales-select {
   width: 100%;
+  min-width: 240px;           /* 🔹 Fuerza un ancho mínimo suficiente */
   padding: 12px;
   margin-top: 10px;
   border: 2px solid #ccc;
@@ -9,6 +10,9 @@
   appearance: none;
   outline: none;
   transition: border 0.2s;
+  white-space: nowrap;        /* 🔹 Evita que el texto haga salto de línea */
+  text-overflow: ellipsis;    /* 🔹 Muestra "..." si algún día es demasiado largo */
+  overflow: hidden;           /* 🔹 Requerido para que funcione el ellipsis */
 }
 
 .comensales-select:focus {
