@@ -26,6 +26,7 @@ const Reservaciones = () => {
   const [comensales, setComensales] = useState('');
   const [mostrarPaso, setMostrarPaso] = useState('mesas');
   const [userName, setUserName] = useState('');
+  const [platoSeleccionado, setPlatoSeleccionado] = useState(null);
   const [platosSeleccionados, setPlatosSeleccionados] = useState([]);
   const [toastVisible, setToastVisible] = useState(false);
   const [toastMensaje, setToastMensaje] = useState('');
@@ -48,13 +49,16 @@ const Reservaciones = () => {
       const user = JSON.parse(userStr);
       setUserName(user.name.split('@')[0]);
 
-      // Cargar platos seleccionados por el usuario
-      fetch(`https://json-backend-reservas2.onrender.com/platosSeleccionados?usuario=${user.email}`)
-        .then(res => res.json())
-        .then(data => setPlatosSeleccionados(data))
-        .catch(err => console.error('Error cargando platos:', err));
-    }
-  }, []);
+     fetch(`https://json-backend-reservas2.onrender.com/platosSeleccionados?usuario=${user.email}`)
+      .then(res => res.json())
+      .then(data => {
+        setPlatosSeleccionados(data);
+        setPlatoSeleccionado(data.length > 0 ? data[0] : null); // si quieres mostrar el primero como principal
+      })
+      .catch(err => console.error('Error cargando platos:', err));
+       } 
+    }, []);
+
 
   const actualizarEstadoMesas = (reservas) => {
     const nuevoEstado = {};
@@ -134,7 +138,7 @@ const Reservaciones = () => {
                       key={mesa.id}
                       className={`mesa-item ${estado}`}
                       onClick={() => {
-                        if (!plato || !plato.nombre) {
+                        if (!platoSeleccionado && platosSeleccionados.length === 0) {
                           mostrarToast('⚠️ Selecciona tu plato antes de hacer una reservación.');
                           return;
                         }
@@ -143,6 +147,7 @@ const Reservaciones = () => {
                           setMostrarPaso('fecha');
                         }
                       }}
+
                     >
                       <h3>{mesa.nombre}</h3>
                       <p className={`estado-label ${estado}`}>
@@ -243,7 +248,12 @@ const Reservaciones = () => {
               <div className="modal-content">
                 <h3>Resumen de Reservación</h3>
                 <p><strong>Nombre:</strong> {userName}</p>
-                <p><strong>Plato:</strong> {Array.isArray(plato) ? plato.map(p => p.nombre).join(', ') : plato?.nombre || 'No seleccionado'}</p>
+                <p><strong>Plato seleccionado:</strong> {platoSeleccionado?.nombre || 'Ninguno'}</p>
+                <p><strong>Platos adicionales:</strong> {
+                  platosSeleccionados.length > 0 
+                    ? platosSeleccionados.map(p => p.nombre).join(', ') 
+                    : 'Ninguno'
+                }</p>
                 <p><strong>Mesa:</strong> {mesaSeleccionada?.nombre}</p>
                 <p><strong>Fecha:</strong> {fechaSeleccionada?.toLocaleDateString()}</p>
                 <p><strong>Hora:</strong> {horaSeleccionada}</p>
