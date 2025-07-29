@@ -1,0 +1,288 @@
+* {
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+}
+
+html,
+body {
+   width: 100%;
+   overflow-x: hidden;
+   font-family: 'Arial', sans-serif;
+   scroll-behavior: smooth;
+}
+
+body {
+   background: url('./assets/background.jpg') no-repeat center center fixed;
+   background-size: cover;
+   color: white;
+}
+
+.hero {
+   background: url('/assets/fondo.png') no-repeat center center;
+   background-size: cover;
+   margin-top: 5rem;
+   height: calc(100vh - 5rem);
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   position: relative;
+}
+
+
+
+
+.overlay {
+   background-color: rgba(0, 0, 0, 0.692);
+   width: 100%;
+   height: 100%;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.hero-content {
+   text-align: center;
+   color: #eeee;
+}
+
+.subtitle {
+   color: #FFD700;
+   font-family: 'Segoe Script', cursive;
+   font-size: 2rem;
+}
+
+.title {
+   font-size: 4rem;
+   font-weight: bold;
+   background-image: linear-gradient(45deg, #fb923c, #ef4444);
+   background-clip: text;
+   -webkit-background-clip: text;
+   /* Para que el degradado se aplique solo al texto */
+   color: transparent;
+   /* Color de fondo se vea solo en el texto */
+}
+
+.flavour {
+   margin: 10px 0;
+   letter-spacing: 2px;
+}
+
+.book-button {
+   padding: 12px 24px;
+   font-size: 1rem;
+   background-color: #FFD700;
+   border: none;
+   color: black;
+   font-weight: bold;
+   cursor: pointer;
+   margin-top: 20px;
+   border-radius: 5px;
+}
+
+.scroll {
+   margin-top: 30px;
+   font-size: 0.8rem;
+}
+
+.navbar {
+   width: 100%;
+   max-width: 1200px;
+   margin: 0 auto;
+   padding: 20px 40px;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   position: absolute;
+   top: 0;
+   left: 0;
+   right: 0;
+   z-index: 1000;
+}
+
+.navbar-logo {
+   font-size: 1.8rem;
+   color: white;
+}
+
+.navbar-menu {
+   display: flex;
+   gap: 30px;
+}
+
+.navbar-menu li {
+   list-style: none;
+}
+
+.navbar-menu li a {
+   color: white;
+   text-decoration: none;
+   font-size: 1.2rem;
+   font-weight: 500;
+   transition: color 0.3s;
+}
+
+.navbar-menu li a:hover {
+   color: #FFD700;
+}
+
+.section-title {
+   font-size: 3rem;
+   color: #f97316;
+   margin-bottom: 20px;
+}
+
+/*----Login----*/
+
+
+.modal-content {
+   background-color: white;
+   padding: 30px;
+   border-radius: 12px;
+   text-align: center;
+   width: 300px;
+   position: relative;
+   color: black;
+
+}
+
+.modal-content input {
+   display: block;
+   width: 100%;
+   margin: 10px 0;
+   padding: 10px;
+}
+
+.modal-content button[type="submit"] {
+   padding: 10px 20px;
+   background-color: #f57c00;
+   color: white;
+   border: none;
+   border-radius: 6px;
+   cursor: pointer;
+}
+
+.close-button {
+   position: absolute;
+   top: 10px;
+   right: 15px;
+   background: none;
+   border: none;
+   font-size: 18px;
+   cursor: pointer;
+}
+
+/*estilo para el boton de cerrar secion*/
+button {
+   padding: 10px 20px;
+   background-color: #FF6347;
+   /* Color tomate */
+   border: none;
+   color: white;
+   cursor: pointer;
+   font-size: 1rem;
+   margin-top: 10px;
+}
+
+button:hover {
+   background-color: #FF4500;
+   /* Color de hover */
+}
+
+.react-datepicker {
+   background-color: rgb(86, 74, 196) !important;
+   border: none !important;
+   padding: 10px;
+   border-radius: 12px;
+   box-shadow: none;
+}
+
+
+/*toast para mensaje al rreservar una mesa*/
+.toast-reserva {
+  min-width: 320px;
+  max-width: 90%;
+  background-color: #22c55e;
+  color: white;
+  text-align: center;
+  border-radius: 12px;
+  padding: 1.5rem;
+  position: fixed;
+  z-index: 9999;
+  left: 50%;
+  top: 20px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  transform: translateX(-50%);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease-in-out, top 0.5s ease-in-out;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.toast-reserva.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+/*toast para los platos*/
+.plato-toast {
+  position: fixed;
+  top: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #f97316;
+  color: white;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  z-index: 999;
+  animation: fadeInOut 4s ease-in-out;
+}
+
+.plato-toast button {
+  background: none;
+  border: none;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translate(-50%, -20px); }
+  10% { opacity: 1; transform: translate(-50%, 0); }
+  90% { opacity: 1; }
+  100% { opacity: 0; transform: translate(-50%, -20px); }
+}
+
+
+
+
+
+
+
+
+
+
+@media screen and (max-width: 1280px) {
+   .mesa-list {
+      grid-template-columns: 1fr 1fr 1fr;
+   }
+}
+
+@media screen and (max-width: 1024px) {
+   .mesa-list {
+      grid-template-columns: 1fr 1fr;
+   }
+}
+
+@media screen and (max-width: 640px) {
+   .title {
+      font-size: 2.5rem;
+   }
+}

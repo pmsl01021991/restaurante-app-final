@@ -1,0 +1,157 @@
+nav {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   color: #111827e6;
+   height: 5rem;
+}
+
+.logo {
+   display: flex;
+   align-items: center;
+   gap: 1rem;
+}
+
+ul {
+   list-style-type: none;
+   display: flex;
+   align-items: center;
+   gap: 2rem;
+}
+
+ul li a{
+   text-decoration: none;
+   padding: 8px;
+   color: #eeee;
+   font-size: 1.1rem;
+   transition: color 0.2s ease-in-out; /* animacion del color del hover */
+}
+
+ul li a:hover {
+   color: #f97316;
+}
+
+ul li button {
+   background-color: rgb(192, 22, 22);
+   /* Color tomate */
+   border: none;
+   color: white;
+   font-size: 1rem;
+   cursor: pointer;
+   margin: 0;
+}
+
+ul li button:hover {
+   background-color: #FF4500;
+   /* Color de hover */
+}
+
+.menu-toggle {
+   display: none;
+   cursor: pointer;
+}
+
+
+/* Submenú dropdown */
+/* Submenú dropdown funcional */
+.dropdown {
+  position: relative;
+}
+
+.dropdown:hover .dropdown-menu,
+.dropdown-menu:hover {
+  display: flex;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%; /* Justo debajo del botón padre */
+  left: 0;
+  background-color: #1f2937;
+  padding: 0.5rem 0;
+  border-radius: 5px;
+  z-index: 999;
+  flex-direction: column;
+  min-width: 200px;
+  pointer-events: auto; /* <- IMPORTANTE para que reciba el cursor */
+}
+
+.dropdown-menu li {
+  padding: 0.5rem 1rem;
+}
+
+.dropdown-menu li a {
+  color: #eeee;
+  text-decoration: none;
+  display: block;
+  width: 100%;
+}
+
+.dropdown-menu li a:hover {
+  color: #f97316;
+  background-color: #374151;
+  border-radius: 4px;
+}
+
+
+
+
+
+@media (max-width: 768px) {
+   .menu-toggle {
+      display: block;
+      color: #f97316;
+      background-color: transparent;
+      padding: 0;
+      margin: 0;
+   }
+
+   .menu-toggle:hover {
+      color: #f97316;
+      background-color: transparent;
+   }
+}
+
+
+/* RESPONSIVE */
+
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  ul {
+    display: none;
+  }
+
+  .responsive-ul {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 5rem;
+    right: 0;
+    background-color: #111827e6;
+    width: 100%;
+    padding: 2rem;
+    z-index: 99;
+  }
+
+  .responsive-li {
+    margin: 0.5rem 0;
+    text-align: center;
+  }
+}
+
+@media (min-width: 769px) {
+  .responsive-ul {
+    display: none !important;
+  }
+}

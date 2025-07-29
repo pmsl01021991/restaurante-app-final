@@ -1,0 +1,25 @@
+.footer {
+   padding: 30px 0;
+   background-color: rgba(0, 0, 0, 0.8);
+   text-align: center;
+   color: #ccc;
+   font-size: 0.9rem;
+}
+
+/*FOOTER*/
+/* Animación para efecto marquee moderno */
+
+.marquee {
+  display: inline-block;
+  white-space: nowrap;
+  animation: scroll-left 15s linear infinite;
+}
+
+@keyframes scroll-left {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}

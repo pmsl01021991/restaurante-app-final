@@ -1,0 +1,40 @@
+.mesa-item {
+  position: relative;
+}
+
+.mesa-item.disponible {
+  cursor: pointer;
+  opacity: 1;
+}
+
+.mesa-item.reservado {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.estado-label {
+  font-weight: bold;
+}
+
+.estado-label.disponible {
+  color: #22c55e;
+}
+
+.estado-label.reservado {
+  color: #ef4444;
+}
+
+.mostrar-mas-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.mostrar-mas-btn {
+  padding: 10px 20px;
+  background-color: #22c55e;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}

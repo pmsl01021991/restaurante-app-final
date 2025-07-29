@@ -1,0 +1,46 @@
+.comensales-select {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+  background-color: white;
+  appearance: none;
+  outline: none;
+  transition: border 0.2s;
+}
+
+.comensales-select:focus {
+  border-color: #fb5c3d;
+}
+
+.comensales-select option {
+  font-size: 16px;
+  padding: 8px;
+}
+
+.botones-navegacion {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  gap: 15px;
+}
+
+.botones-navegacion button {
+  flex: 1;
+  padding: 10px 0;
+  font-weight: bold;
+  font-size: 15px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background-color: #ff6b5b;
+  color: white;
+  transition: background-color 0.2s;
+}
+
+.botones-navegacion button:hover {
+  opacity: 0.9;
+}
+
