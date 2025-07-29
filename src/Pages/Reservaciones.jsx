@@ -26,7 +26,7 @@ const Reservaciones = () => {
   const [comensales, setComensales] = useState('');
   const [mostrarPaso, setMostrarPaso] = useState('mesas');
   const [userName, setUserName] = useState('');
-  const [plato, setPlato] = useState(null);
+  const [platosSeleccionados, setPlatosSeleccionados] = useState([]);
   const [toastVisible, setToastVisible] = useState(false);
   const [toastMensaje, setToastMensaje] = useState('');
   const [cantidadMesasVisibles, setCantidadMesasVisibles] = useState(8);
@@ -34,6 +34,7 @@ const Reservaciones = () => {
   const [estadoMesas, setEstadoMesas] = useState({});
 
   useEffect(() => {
+    // Cargar reservas para mostrar mesas ocupadas
     fetch('https://json-backend-reservas2.onrender.com/reservas')
       .then(res => res.json())
       .then(data => {
@@ -41,14 +42,17 @@ const Reservaciones = () => {
         actualizarEstadoMesas(data);
       });
 
+    // Obtener usuario logueado
     const userStr = localStorage.getItem('user');
-    fetch('https://json-backend-reservas2.onrender.com/platoSeleccionado')
-      .then(res => res.json())
-      .then(data => setPlato(data));
-
     if (userStr) {
       const user = JSON.parse(userStr);
       setUserName(user.name.split('@')[0]);
+
+      // Cargar platos seleccionados por el usuario
+      fetch(`https://json-backend-reservas2.onrender.com/platosSeleccionados?usuario=${user.email}`)
+        .then(res => res.json())
+        .then(data => setPlatosSeleccionados(data))
+        .catch(err => console.error('Error cargando platos:', err));
     }
   }, []);
 
@@ -67,7 +71,7 @@ const Reservaciones = () => {
 
     const nuevaReserva = {
       cliente: userName,
-      plato: Array.isArray(plato) ? plato.map(p => p.nombre).join(', ') : plato?.nombre || '',
+      plato: platosSeleccionados.map(p => p.nombre).join(', '),
       mesa: mesaSeleccionada?.nombre,
       fecha: fechaSeleccionada?.toISOString().split('T')[0],
       hora: horaSeleccionada,
@@ -87,37 +91,23 @@ const Reservaciones = () => {
         actualizarEstadoMesas(nuevasReservas);
         mostrarToast('✅ Reservación confirmada.');
 
-        const userStr = localStorage.getItem('user');
-        if (userStr) {
-          const user = JSON.parse(userStr);
-          fetch('https://json-backend-reservas2.onrender.com/platosSeleccionados')
-            .then(res => res.json())
-            .then(data => {
-              const platosDelUsuario = data.filter(p => p.usuario === user.email);
-              platosDelUsuario.forEach(plato => {
-                fetch(`https://json-backend-reservas2.onrender.com/platosSeleccionados/${plato.id}`, {
-                  method: 'DELETE'
-                });
-              });
-            });
-        }
+        // Borrar los platos seleccionados del backend
+        platosSeleccionados.forEach(plato => {
+          fetch(`https://json-backend-reservas2.onrender.com/platosSeleccionados/${plato.id}`, {
+            method: 'DELETE'
+          });
+        });
+
+        // Limpiar estado
+        setMostrarPaso('mesas');
+        setNumero('');
+        setMesaSeleccionada(null);
+        setHoraSeleccionada('');
+        setFechaSeleccionada(null);
+        setPlatosSeleccionados([]);
       })
       .catch(err => console.error('Error al guardar reserva', err));
-
-    setMostrarPaso('mesas');
-    setNumero('');
-    setMesaSeleccionada(null);
-    setHoraSeleccionada('');
-    setFechaSeleccionada(null);
-    setPlato(null);
   };
-
-  const botones = (volverPaso, continuarPaso, puedeContinuar = true) => (
-    <div style={{ marginTop: '15px', display: 'flex', justifyContent: 'center', gap: '10px' }}>
-      <button onClick={() => setMostrarPaso(volverPaso)}>Atrás</button>
-      <button onClick={() => puedeContinuar && setMostrarPaso(continuarPaso)}>Continuar</button>
-    </div>
-  );
 
   const mostrarToast = (mensaje) => {
     setToastMensaje(mensaje);
