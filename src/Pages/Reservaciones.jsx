@@ -229,7 +229,13 @@ const Reservaciones = () => {
                   type="tel"
                   maxLength={9}
                   value={numero}
-                  onChange={(e) => setNumero(e.target.value)}
+                  onChange={(e) => {
+                    const valor = e.target.value;
+                    // Solo números
+                    if (/^\d*$/.test(valor)) {
+                      setNumero(valor);
+                    }
+                  }}
                   placeholder="Número de celular"
                   required
                   className="numero-input"
@@ -238,6 +244,7 @@ const Reservaciones = () => {
               </div>
             </div>
           )}
+
 
           {mostrarPaso === 'comensales' && (
             <div className="modal-overlay">
