@@ -1,6 +1,6 @@
 .comensales-select {
   width: 100%;
-  min-width: 250px; /* 👈 Evita que se corte el texto */
+  min-width: 259px; /* 👈 Evita que se corte el texto */
   padding: 12px;
   margin-top: 10px;
   border: 2px solid #ccc;
