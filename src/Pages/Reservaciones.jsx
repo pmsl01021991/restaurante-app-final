@@ -264,14 +264,20 @@ const Reservaciones = () => {
                   }}
                 >
                   <option value="" disabled>Seleccionar número de personas</option>
-                  {Array.from({ length: 8 }, (_, i) => (
-                    <option key={i + 1} value={i + 1}>{i + 1}</option>
-                  ))}
+                  {Array.from({ length: 8 }, (_, i) => {
+                    const numero = i + 1;
+                    return (
+                      <option key={numero} value={numero}>
+                        {numero} {numero === 1 ? 'persona' : 'personas'}
+                      </option>
+                    );
+                  })}
                 </select>
                 {botones('numero', 'confirmar', !!comensales)}
               </div>
             </div>
           )}
+
 
 
           {mostrarPaso === 'confirmar' && (
