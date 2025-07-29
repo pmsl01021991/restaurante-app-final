@@ -34,6 +34,20 @@ const Reservaciones = () => {
   const [reservasHechas, setReservasHechas] = useState([]);
   const [estadoMesas, setEstadoMesas] = useState({});
 
+
+ 
+  const botones = (prevStep, nextStep, habilitado) => (
+    <div className="modal-buttons">
+      <button onClick={() => setMostrarPaso(prevStep)}>Atrás</button>
+      <button 
+        disabled={!habilitado}
+        onClick={() => setMostrarPaso(nextStep)}
+      >
+        Siguiente
+      </button>
+    </div>
+  );
+
   useEffect(() => {
     // Cargar reservas para mostrar mesas ocupadas
     fetch('https://json-backend-reservas2.onrender.com/reservas')
