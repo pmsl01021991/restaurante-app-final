@@ -250,18 +250,13 @@ const Reservaciones = () => {
             <div className="modal-overlay">
               <div className="modal-content">
                 <h3>¿Cuántos comensales asistirán?</h3>
+                
                 <select
+                  className="comensales-select"
                   value={comensales}
                   onChange={(e) => setComensales(e.target.value)}
                   required
-                  style={{
-                    width: '100%',
-                    padding: '10px',
-                    fontSize: '16px',
-                    marginTop: '10px',
-                    borderRadius: '5px',
-                    border: '1px solid #ccc',
-                  }}
+                  aria-label="Seleccionar número de comensales"
                 >
                   <option value="" disabled>Seleccionar número de personas</option>
                   {Array.from({ length: 8 }, (_, i) => {
@@ -273,6 +268,7 @@ const Reservaciones = () => {
                     );
                   })}
                 </select>
+
                 {botones('numero', 'confirmar', !!comensales)}
               </div>
             </div>
