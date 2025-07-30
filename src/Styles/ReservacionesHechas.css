@@ -1,33 +1,105 @@
-.reservaciones-hechas-container {
+/* === Sección Principal === */
+.reservation-section {
+  padding: 2rem 0;
+}
+ 
+/* === Título y texto === */
+.menu-title {
+  font-size: 2rem;
+  color: #f97316;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+ 
+.section-text {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #9ca3af;
+}
+ 
+/* === Contenedor principal === */
+.reservation-content {
   display: flex;
   gap: 2rem;
-  padding: 2rem;
   flex-wrap: wrap;
+  padding: 0 2rem;
 }
-
-.reservas-lista {
-  background-color: #f9f9f9;
-  color: #333;
-  padding: 1rem 2rem;
-  border-radius: 10px;
+ 
+/* === Calendario === */
+.rh-calendar-container {
+  flex: 1 1 500px;
   min-width: 300px;
-  flex: 1;
 }
-
-.reserva-item {
-  display: flex;
-  justify-content: space-between;
+ 
+.rh-calendar-container .rbc-calendar {
+  height: 500px;
+  background-color: white;
+  color: #111827;
+  border-radius: 10px;
+  padding: 10px;
+}
+ 
+/* === Panel de Reservas === */
+.rh-panel-container {
+  flex: 1 1 300px;
+  background-color: #f9fafb;
+  border-radius: 10px;
+  padding: 1rem 2rem;
+  color: #333;
+  min-width: 300px;
+}
+ 
+.panel-title {
+  color: #111827;
   margin-bottom: 1rem;
-  background-color: #fff;
+}
+ 
+.no-reservas-text {
+  color: #6b7280;
+}
+ 
+/* === Cada Reserva === */
+.rh-reserva-item {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
   padding: 0.8rem;
   border-radius: 6px;
-  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+  background-color: #ffffff;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
-
-.cliente {
-  background-color: #6b7280;
+ 
+.rh-reserva-item .rh-cliente {
+  text-transform: capitalize;
+  font-weight: bolder;
+  font-size: 18px;
+}
+ 
+.rh-reserva-item .rh-reserva-mesa {
   color: white;
-  padding: 0.3rem 0.6rem;
+  background-color: #f97316;
+  padding: 3px 12px;
   border-radius: 5px;
-  font-size: 0.8rem;
+  font-size: 15px;
+}
+ 
+.rh-reserva-numero {
+  font-size: 0.9rem;
+  color: #6b7280;
+  margin-bottom: 0.5rem;
+}
+ 
+.rh-reserva-info {
+  font-size: 0.9rem;
+  color: #6b7280;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+ 
+.rh-reserva-icon {
+  width: 18px;
+  height: 18px;
+  margin-right: 5px;
 }
