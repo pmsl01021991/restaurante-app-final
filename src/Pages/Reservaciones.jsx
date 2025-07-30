@@ -73,29 +73,60 @@ const Reservaciones = () => {
        } 
     }, []);
 
+    // Recalcula el estado de las mesas cuando cambian fecha, hora o reservas
+    useEffect(() => {
+      actualizarEstadoMesas(reservasHechas);
+    }, [fechaSeleccionada, horaSeleccionada, reservasHechas]);
 
-  const actualizarEstadoMesas = (reservas) => {
+
+
+  const actualizarEstadoMesas = (reservas, fecha = fechaSeleccionada, hora = horaSeleccionada) => {
     const nuevoEstado = {};
-    mesasDisponibles.forEach(m => nuevoEstado[`mesa${m.id}`] = 'disponible');
-    reservas.forEach(res => {
-      const mesaId = mesasDisponibles.find(m => m.nombre === res.mesa)?.id;
-      if (mesaId) nuevoEstado[`mesa${mesaId}`] = 'reservado';
+    const fechaStr = fecha ? fecha.toISOString().split('T')[0] : null;
+
+    mesasDisponibles.forEach(m => {
+      const reservasMesa = reservas.filter(r => r.mesa === m.nombre);
+
+      // Solo la marcamos como ocupada si choca fecha/hora seleccionada
+      const reservada = reservasMesa.some(r =>
+        (!fechaStr || r.fecha === fechaStr) &&
+        (!hora || r.hora === hora)
+      );
+
+      nuevoEstado[`mesa${m.id}`] = reservada ? 'reservado' : 'disponible';
     });
+
     setEstadoMesas(nuevoEstado);
   };
 
-  const confirmarReserva = () => {
-    if (!numero.trim()) return alert('Ingresa tu número.');
 
-    const nuevaReserva = {
-      cliente: userName,
-      plato: platosSeleccionados.map(p => p.nombre).join(', '),
-      mesa: mesaSeleccionada?.nombre,
-      fecha: fechaSeleccionada?.toISOString().split('T')[0],
-      hora: horaSeleccionada,
-      numero,
-      comensales
-    };
+
+  const confirmarReserva = () => {
+      if (!numero.trim()) return alert('Ingresa tu número.');
+
+      // Validar si ya existe reserva con misma mesa/fecha/hora
+      const existeConflicto = reservasHechas.some(r =>
+        r.mesa === mesaSeleccionada?.nombre &&
+        r.fecha === fechaSeleccionada?.toISOString().split('T')[0] &&
+        r.hora === horaSeleccionada
+      );
+
+      if (existeConflicto) {
+        mostrarToast('⚠️ Esta mesa ya está reservada en ese horario.');
+        return;
+      }
+
+      const nuevaReserva = {
+        cliente: userName,
+        plato: platosSeleccionados.map(p => p.nombre).join(', '),
+        mesa: mesaSeleccionada?.nombre,
+        fecha: fechaSeleccionada?.toISOString().split('T')[0],
+        hora: horaSeleccionada,
+        numero,
+        comensales
+      };
+
+
 
     fetch('https://json-backend-reservas2.onrender.com/reservas', {
       method: 'POST',
@@ -156,10 +187,8 @@ const Reservaciones = () => {
                           mostrarToast('⚠️ Selecciona tu plato antes de hacer una reservación.');
                           return;
                         }
-                        if (estado === 'disponible') {
-                          setMesaSeleccionada(mesa);
-                          setMostrarPaso('fecha');
-                        }
+                        setMesaSeleccionada(mesa);
+                        setMostrarPaso('fecha');
                       }}
 
                     >
@@ -167,11 +196,16 @@ const Reservaciones = () => {
                       <p className={`estado-label ${estado}`}>
                         {estado === 'disponible' ? 'Disponible' : 'Reservado'}
                       </p>
-                      {estado === 'reservado' && reservaMesa && (
-                        <div className="reserva-info">
-                          <span><strong>{reservaMesa.cliente === userName ? 'Tú' : reservaMesa.cliente}</strong></span><br />
-                          <span>{reservaMesa.fecha}</span><br />
-                          <span>{reservaMesa.hora}</span>
+                      {estado === 'reservado' && (
+                        <div className="info-reservas">
+                          {reservasHechas
+                            .filter(r => r.mesa === mesa.nombre)
+                            .map((r, index) => (
+                              <div key={index} className="reserva-info-item">
+                                <strong>{r.cliente === userName ? 'Tú' : r.cliente}</strong>
+                                <span>{r.fecha} - {r.hora}</span>
+                              </div>
+                          ))}
                         </div>
                       )}
                     </li>
