@@ -1,6 +1,6 @@
 .comensales-select {
   width: 100%;
-  min-width: 259px; /* 👈 Evita que se corte el texto */
+  min-width: 259px; 
   padding: 12px;
   margin-top: 10px;
   border: 2px solid #ccc;
@@ -10,7 +10,7 @@
   appearance: none;
   outline: none;
   transition: border 0.2s;
-  white-space: nowrap; /* 👈 Evita el salto de línea */
+  white-space: nowrap; 
 }
 
 .comensales-select:focus {
