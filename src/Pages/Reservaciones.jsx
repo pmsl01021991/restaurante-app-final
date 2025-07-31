@@ -51,7 +51,7 @@ const Reservaciones = () => {
 
   useEffect(() => {
     // Cargar reservas para mostrar mesas ocupadas
-    fetch('https://json-backend-reservas2.onrender.com/reservas')
+    fetch('https://json-backend-reservas3.onrender.com/reservas')
       .then(res => res.json())
       .then(data => {
         setReservasHechas(data);
@@ -64,7 +64,7 @@ const Reservaciones = () => {
       const user = JSON.parse(userStr);
       setUserName(user.name.split('@')[0]);
 
-     fetch(`https://json-backend-reservas2.onrender.com/platosSeleccionados?usuario=${user.email}`)
+     fetch(`https://json-backend-reservas3.onrender.com/platosSeleccionados?usuario=${user.email}`)
       .then(res => res.json())
       .then(data => {
         setPlatosSeleccionados(data);
@@ -129,7 +129,7 @@ const Reservaciones = () => {
 
 
 
-    fetch('https://json-backend-reservas2.onrender.com/reservas', {
+    fetch('https://json-backend-reservas3.onrender.com/reservas', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(nuevaReserva)
@@ -143,7 +143,7 @@ const Reservaciones = () => {
 
         // Borrar los platos seleccionados del backend
         platosSeleccionados.forEach(plato => {
-          fetch(`https://json-backend-reservas2.onrender.com/platosSeleccionados/${plato.id}`, {
+          fetch(`https://json-backend-reservas3.onrender.com/platosSeleccionados/${plato.id}`, {
             method: 'DELETE'
           });
         });

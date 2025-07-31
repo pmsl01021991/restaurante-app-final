@@ -46,7 +46,7 @@ const Authentication = ({ onClose }) => {
          return;
       }
 
-      fetch('https://json-backend-reservas2.onrender.com/usuarios')
+      fetch('https://json-backend-reservas3.onrender.com/usuarios')
          .then(res => res.json())
          .then(data => {
             const usuarioEncontrado = data.find(u => u.username === username && u.password === password);
@@ -90,7 +90,7 @@ const Authentication = ({ onClose }) => {
       }
 
       // Validar si ya existe el usuario en la base de datos
-      const response = await fetch(`https://json-backend-reservas2.onrender.com/usuarios?username=${username}`);
+      const response = await fetch(`https://json-backend-reservas3.onrender.com/usuarios?username=${username}`);
       const usuarios = await response.json();
 
       if (usuarios.length > 0) {
@@ -101,7 +101,7 @@ const Authentication = ({ onClose }) => {
       // Crear nuevo usuario
       const nuevoUsuario = { username, password: password1, rol: 'cliente' };
 
-      await fetch('https://json-backend-reservas2.onrender.com/usuarios', {
+      await fetch('https://json-backend-reservas3.onrender.com/usuarios', {
          method: 'POST',
          headers: { 'Content-Type': 'application/json' },
          body: JSON.stringify(nuevoUsuario)

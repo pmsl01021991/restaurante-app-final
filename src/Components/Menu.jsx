@@ -9,7 +9,7 @@ const Menu = () => {
 
   // 🔹 Cargar los platos desde Render SOLO UNA VEZ
   useEffect(() => {
-    fetch('https://json-backend-reservas2.onrender.com/platos')
+    fetch('https://json-backend-reservas3.onrender.com/platos')
       .then((res) => res.json())
       .then((data) => setMenuItems(data))
       .catch((error) => console.error('Error al obtener platos:', error));
@@ -28,7 +28,7 @@ const Menu = () => {
 
     try {
       // 1️⃣ Guardar en backend (json-server)
-      await fetch('https://json-backend-reservas2.onrender.com/platosSeleccionados', {
+      await fetch('https://json-backend-reservas3.onrender.com/platosSeleccionados', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(platoConUsuario),
