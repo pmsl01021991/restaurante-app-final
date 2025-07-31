@@ -39,7 +39,7 @@ const Menu = () => {
       platosGuardados.push(platoConUsuario);
       localStorage.setItem('platosSeleccionados', JSON.stringify(platosGuardados));
 
-      // 3️⃣ Mostrar notificación
+      
       setMensaje(`🍽️ ${plato.nombre} agregado a tu reservación`);
       setMostrarToast(true);
       setTimeout(() => setMostrarToast(false), 3000);
