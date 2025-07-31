@@ -1,0 +1,73 @@
+{
+  "usuarios": [
+    {
+      "id": 1,
+      "username": "admin@gmail.com",
+      "password": "pmsl123",
+      "rol": "admin"
+    },
+    {
+      "id": 2,
+      "username": "cliente1@gmail.com",
+      "password": "cliente123",
+      "rol": "cliente"
+    }
+  ],
+  "platos": [
+    {
+      "id": 1,
+      "nombre": "Pasta Carbonara",
+      "descripcion": "Deliciosa pasta con salsa cremosa y panceta",
+      "precio": 12,
+      "imagen": "/assets/pasta.jpeg",
+      "categoria": "Pastas"
+    },
+    {
+      "id": 2,
+      "nombre": "Pizza Margherita",
+      "descripcion": "Pizza clásica con tomate, mozzarella y albahaca",
+      "precio": 10,
+      "imagen": "/assets/pizza.jpeg",
+      "categoria": "Pizzas"
+    },
+    {
+      "id": 3,
+      "nombre": "Carne Asada",
+      "descripcion": "Jugosa carne a la parrilla con especias especiales",
+      "precio": 8,
+      "imagen": "/assets/carne.jpeg",
+      "categoria": "Carnes"
+    },
+    {
+      "id": 4,
+      "nombre": "Pollo Asado",
+      "descripcion": "Pollo marinado y asado a la perfección",
+      "precio": 20,
+      "imagen": "/assets/pollo.jpeg",
+      "categoria": "Pollos"
+    }
+  ],
+  "reservas": [
+    {
+      "cliente": "pablo1",
+      "plato": "",
+      "mesa": "Mesa 2",
+      "fecha": "2025-07-25",
+      "hora": "18:30",
+      "numero": "919045635",
+      "comensales": "2",
+      "id": 1
+    },
+    {
+      "cliente": "erick",
+      "plato": "",
+      "mesa": "Mesa 4",
+      "fecha": "2025-07-25",
+      "hora": "16:30",
+      "numero": "987654321",
+      "comensales": "2",
+      "id": 2
+    }
+  ],
+  "platosSeleccionados": []
+}
