@@ -1,6 +1,6 @@
 import '../Styles/Menu.css';
 import Container from './Container';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, memo } from 'react';
 
 const Menu = () => {
   const [menuItems, setMenuItems] = useState([]);
@@ -15,31 +15,27 @@ const Menu = () => {
       .catch((error) => console.error('Error al obtener platos:', error));
   }, []);
 
-  // 🔹 Función para elegir un plato
-  const handleElegirPlato = async (plato) => {
+  // 🔹 Memorizar función para que React.memo funcione
+  const handleElegirPlato = useCallback(async (plato) => {
     const user = JSON.parse(localStorage.getItem('user'));
     if (!user) {
       alert("Debes iniciar sesión primero");
       return;
     }
 
-    // Crear el objeto de plato con usuario
     const platoConUsuario = { ...plato, usuario: user.email };
 
     try {
-      // 1️⃣ Guardar en backend (json-server)
       await fetch('https://json-backend-reservas2.onrender.com/platosSeleccionados', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(platoConUsuario),
       });
 
-      // 2️⃣ Guardar también en localStorage para mostrar el toast de inmediato
       const platosGuardados = JSON.parse(localStorage.getItem('platosSeleccionados')) || [];
       platosGuardados.push(platoConUsuario);
       localStorage.setItem('platosSeleccionados', JSON.stringify(platosGuardados));
 
-      
       setMensaje(`🍽️ ${plato.nombre} agregado a tu reservación`);
       setMostrarToast(true);
       setTimeout(() => setMostrarToast(false), 3000);
@@ -47,7 +43,23 @@ const Menu = () => {
       console.error('Error guardando plato en backend:', error);
       alert('No se pudo guardar el plato. Intenta de nuevo.');
     }
-  };
+  }, []);
+
+  // 🔹 Subcomponente memoizado para los items
+  const MenuItem = memo(({ item, onElegir }) => (
+    <li className="menu-item">
+      <img src={item.imagen} alt={item.nombre} className="menu-image" />
+      <h3>{item.nombre}</h3>
+      <p>{item.descripcion}</p>
+      <span>{item.precio}</span>
+      <button
+        className="add-button"
+        onClick={() => onElegir(item)}
+      >
+        Agregar a reservación
+      </button>
+    </li>
+  ));
 
   return (
     <section id="menu" className="menu-section">
@@ -58,18 +70,7 @@ const Menu = () => {
         </p>
         <ul className="menu-list">
           {menuItems.map((item, index) => (
-            <li key={index} className="menu-item">
-              <img src={item.imagen} alt={item.nombre} className="menu-image" />
-              <h3>{item.nombre}</h3>
-              <p>{item.descripcion}</p>
-              <span>{item.precio}</span>
-              <button
-                className="add-button"
-                onClick={() => handleElegirPlato(item)}
-              >
-                Agregar a reservación
-              </button>
-            </li>
+            <MenuItem key={index} item={item} onElegir={handleElegirPlato} />
           ))}
         </ul>
       </Container>

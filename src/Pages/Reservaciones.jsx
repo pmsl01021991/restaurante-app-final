@@ -68,7 +68,7 @@ const Reservaciones = () => {
       .then(res => res.json())
       .then(data => {
         setPlatosSeleccionados(data);
-        setPlatoSeleccionado(data.length > 0 ? data[0] : null); // si quieres mostrar el primero como principal
+        setPlatoSeleccionado(data.length > 0 ? data[0] : null); 
       })
       .catch(err => console.error('Error cargando platos:', err));
        } 
