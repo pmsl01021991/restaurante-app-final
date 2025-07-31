@@ -16,6 +16,7 @@ const App = () => {
       <Routes>
         {/* Page Inicio */}
         <Route path="/" element={<Inicio />} />
+        <Route path="/" element={<Inicio />} />
         {/* Page Reservaciones */}
         <Route path="/reservaciones" element={<Reservaciones />} />
         {/* ✅ Solo el ADMIN puede acceder */}
