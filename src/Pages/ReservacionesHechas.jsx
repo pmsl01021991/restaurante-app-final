@@ -5,17 +5,16 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 import '../Styles/ReservacionesHechas.css';
 import Container from '../Components/Container';
 import EditarReservaModal from '../Components/EditarReservaModal';
-import { Clock, UsersRound } from 'lucide-react';
- 
+import ReservasLista from './ReservasLista'; // 👈 Nuevo componente
+
 const localizer = momentLocalizer(moment);
- 
+
 const ReservacionesHechas = () => {
   const [eventos, setEventos] = useState([]);
   const [fechaSeleccionada, setFechaSeleccionada] = useState(null);
   const [reservasDelDia, setReservasDelDia] = useState([]);
   const [reservaSeleccionada, setReservaSeleccionada] = useState(null);
- 
-  // ✅ Nueva función para cargar las reservas
+
   const cargarReservas = () => {
     fetch('https://json-backend-reservas2.onrender.com/reservas')
       .then(res => res.json())
@@ -34,12 +33,11 @@ const ReservacionesHechas = () => {
         setReservasDelDia(data);
       });
   };
- 
-  // Se ejecuta al cargar el componente
+
   useEffect(() => {
     cargarReservas();
   }, []);
- 
+
   const handleSelectSlot = ({ start }) => {
     const fecha = moment(start).format('YYYY-MM-DD');
     const reservasFiltradas = eventos
@@ -48,14 +46,15 @@ const ReservacionesHechas = () => {
     setFechaSeleccionada(fecha);
     setReservasDelDia(reservasFiltradas);
   };
- 
+
   return (
     <section className="reservation-section">
       <Container>
         <h2 className="menu-title">Reservaciones Hechas</h2>
         <p className="section-text">Consulta las reservaciones registradas por fecha.</p>
- 
+
         <div className="reservation-content">
+          {/* ✅ Calendario */}
           <div className="rh-calendar-container">
             <Calendar
               localizer={localizer}
@@ -70,42 +69,17 @@ const ReservacionesHechas = () => {
               onSelectEvent={(event) => handleSelectSlot({ start: event.start })}
             />
           </div>
- 
-          <div className="rh-panel-container">
-            <h3 className="panel-title">
-              {fechaSeleccionada ? `Reservas para ${fechaSeleccionada}` : 'Todas las reservas'}
-            </h3>
- 
-            {reservasDelDia.length === 0 ? (
-              <p className="no-reservas-text">No hay reservas para esta fecha.</p>
-            ) : (
-              reservasDelDia.map((reserva, i) => (
-                <div
-                  key={i}
-                  className="rh-reserva-item"
-                  onClick={() => setReservaSeleccionada(reserva)}
-                >
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <p className="rh-cliente">{reserva.cliente}</p>
-                    <span className="rh-reserva-mesa">{reserva.mesa}</span>
-                  </div>
-                  <div className="rh-reserva-numero">{reserva.numero}</div>
-                  {reserva.comensales && (
-                    <div className="rh-reserva-info">
-                      <Clock className="rh-reserva-icon" />
-                      {moment(reserva.hora, 'HH:mm').format('hh:mm A')}
-                      <span>|</span>
-                      <UsersRound className="rh-reserva-icon" />
-                      {reserva.comensales} Comensales
-                    </div>
-                  )}
-                </div>
-              ))
-            )}
-          </div>
+
+          {/* ✅ Lista separada */}
+          <ReservasLista
+            reservas={reservasDelDia}
+            fechaSeleccionada={fechaSeleccionada}
+            onSelectReserva={setReservaSeleccionada}
+          />
         </div>
       </Container>
- 
+
+      {/* Modal de edición */}
       <EditarReservaModal
         reserva={reservaSeleccionada}
         onClose={() => setReservaSeleccionada(null)}
@@ -114,24 +88,22 @@ const ReservacionesHechas = () => {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(reservaActualizada)
-          })
-            .then(() => {
-              cargarReservas();           // ✅ Recargar datos
-              setReservaSeleccionada(null); // ✅ Cerrar modal automáticamente
-            });
+          }).then(() => {
+            cargarReservas();
+            setReservaSeleccionada(null);
+          });
         }}
         onEliminar={() => {
           fetch(`https://json-backend-reservas2.onrender.com/reservas/${reservaSeleccionada.id}`, {
             method: 'DELETE'
-          })
-            .then(() => {
-              cargarReservas();           // ✅ Recargar datos
-              setReservaSeleccionada(null); // ✅ Cerrar modal tras eliminar
-            });
+          }).then(() => {
+            cargarReservas();
+            setReservaSeleccionada(null);
+          });
         }}
       />
     </section>
   );
 };
- 
+
 export default ReservacionesHechas;
