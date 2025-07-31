@@ -3,7 +3,7 @@ import Navbar from './Components/Navbar.jsx';
 import Footer from './Components/Footer.jsx';
 import Reservaciones from './Pages/Reservaciones.jsx';
 import ReservacionesHechas from './Pages/ReservacionesHechas.jsx';
-import Inicio from './pages/Inicio.jsx';
+import Inicio from './Pages/Inicio.jsx';
 import './App.css';
 
 const App = () => {
@@ -15,7 +15,6 @@ const App = () => {
       <main>
       <Routes>
         {/* Page Inicio */}
-        <Route path="/" element={<Inicio />} />
         <Route path="/" element={<Inicio />} />
         {/* Page Reservaciones */}
         <Route path="/reservaciones" element={<Reservaciones />} />
