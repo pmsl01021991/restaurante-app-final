@@ -4,7 +4,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import Container from '../Components/Container';
 import '../Styles/Comensales.css';
-import '../Styles/Numerocliente.css';
+import '../Styles/NumeroCliente.css';
 import '../Styles/MesasReservaciones.css';
 
 const mesasDisponibles = Array.from({ length: 16 }, (_, i) => ({
