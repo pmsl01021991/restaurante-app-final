@@ -256,7 +256,7 @@ const Reservaciones = () => {
             </div>
           )}
 
-          {mostrarPaso === 'numero' && (
+          {mostrarPaso === 'numero' && ( 
             <div className="modal-overlay">
               <div className="modal-content numero-modal">
                 <h3>Ingresa tu número de celular</h3>
@@ -275,10 +275,21 @@ const Reservaciones = () => {
                   required
                   className="numero-input"
                 />
-                {botones('hora', 'comensales', numero.length === 9)}
+
+                {/* Mensaje de error si el número no cumple */}
+                {numero.length > 0 && (numero.length < 9 || !numero.startsWith('9')) && (
+                  <p className="error-mensaje">
+                    Completa el número de 9 dígitos empezando por "9"
+                  </p>
+                )}
+
+                {/* Botones: solo permite avanzar si cumple las condiciones */}
+                {botones('hora', 'comensales', numero.length === 9 && numero.startsWith('9'))}
               </div>
             </div>
           )}
+
+
 
 
           {mostrarPaso === 'comensales' && (

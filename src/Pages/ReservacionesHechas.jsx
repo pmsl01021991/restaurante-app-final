@@ -15,7 +15,8 @@ const ReservacionesHechas = () => {
   const [reservasDelDia, setReservasDelDia] = useState([]);
   const [reservaSeleccionada, setReservaSeleccionada] = useState(null);
  
-  useEffect(() => {
+  // ✅ Nueva función para cargar las reservas
+  const cargarReservas = () => {
     fetch('https://json-backend-reservas2.onrender.com/reservas')
       .then(res => res.json())
       .then(data => {
@@ -32,6 +33,11 @@ const ReservacionesHechas = () => {
         setEventos(eventosConvertidos);
         setReservasDelDia(data);
       });
+  };
+ 
+  // Se ejecuta al cargar el componente
+  useEffect(() => {
+    cargarReservas();
   }, []);
  
   const handleSelectSlot = ({ start }) => {
@@ -83,9 +89,7 @@ const ReservacionesHechas = () => {
                     <p className="rh-cliente">{reserva.cliente}</p>
                     <span className="rh-reserva-mesa">{reserva.mesa}</span>
                   </div>
-                  <div className="rh-reserva-numero">
-                    {reserva.numero}
-                  </div>
+                  <div className="rh-reserva-numero">{reserva.numero}</div>
                   {reserva.comensales && (
                     <div className="rh-reserva-info">
                       <Clock className="rh-reserva-icon" />
@@ -102,46 +106,30 @@ const ReservacionesHechas = () => {
         </div>
       </Container>
  
-      {reservaSeleccionada && (
-        <EditarReservaModal
-          reserva={reservaSeleccionada}
-          onClose={() => setReservaSeleccionada(null)}
-          onGuardar={(reservaActualizada) => {
-            fetch(`https://json-backend-reservas2.onrender.com/reservas/${reservaSeleccionada.id}`, {
-              method: 'PUT',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify(reservaActualizada)
-            })
-              .then(res => res.json())
-              .then(updated => {
-                setEventos(prev =>
-                  prev.map(ev =>
-                    ev.id === updated.id
-                      ? {
-                        ...ev,
-                        title: `${updated.mesa} - ${updated.cliente}`,
-                        start: moment(`${updated.fecha} ${updated.hora}`, 'YYYY-MM-DD HH:mm').toDate(),
-                        end: moment(`${updated.fecha} ${updated.hora}`, 'YYYY-MM-DD HH:mm').add(30, 'minutes').toDate(),
-                        reserva: updated
-                      }
-                      : ev
-                  )
-                );
-                setReservaSeleccionada(null);
-              });
-          }}
-          onEliminar={() => {
-            fetch(`https://json-backend-reservas2.onrender.com/reservas/${reservaSeleccionada.id}`, {
-              method: 'DELETE'
-            })
-              .then(() => {
-                setEventos(prev => prev.filter(ev => ev.id !== reservaSeleccionada.id));
-                setReservasDelDia(prev => prev.filter(r => r.id !== reservaSeleccionada.id));
-                setReservaSeleccionada(null);
-              });
-          }}
-        />
-      )}
+      <EditarReservaModal
+        reserva={reservaSeleccionada}
+        onClose={() => setReservaSeleccionada(null)}
+        onGuardar={(reservaActualizada) => {
+          fetch(`https://json-backend-reservas2.onrender.com/reservas/${reservaSeleccionada.id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(reservaActualizada)
+          })
+            .then(() => {
+              cargarReservas();           // ✅ Recargar datos
+              setReservaSeleccionada(null); // ✅ Cerrar modal automáticamente
+            });
+        }}
+        onEliminar={() => {
+          fetch(`https://json-backend-reservas2.onrender.com/reservas/${reservaSeleccionada.id}`, {
+            method: 'DELETE'
+          })
+            .then(() => {
+              cargarReservas();           // ✅ Recargar datos
+              setReservaSeleccionada(null); // ✅ Cerrar modal tras eliminar
+            });
+        }}
+      />
     </section>
   );
 };
