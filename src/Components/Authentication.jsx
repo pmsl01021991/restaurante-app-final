@@ -51,6 +51,12 @@ const Authentication = ({ onClose }) => {
          .then(data => {
             const usuarioEncontrado = data.find(u => u.username === username && u.password === password);
             if (usuarioEncontrado) {
+            // Limpiar el nombre para mostrarlo sin números ni puntos finales
+            const nombreLimpio = usuarioEncontrado.username
+               .split('@')[0]
+               .replace(/\d+/g, '')
+               .replace(/\.+$/, '');
+               
             const user = {
                name: usuarioEncontrado.username,
                rol: usuarioEncontrado.username === 'admin@gmail.com' ? 'admin' : 'cliente'

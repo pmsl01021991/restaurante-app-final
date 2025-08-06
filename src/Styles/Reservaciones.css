@@ -21,10 +21,13 @@
 }
 
 .mesa-list {
-   padding: 4rem 0;
-   display: grid;
-   grid-template-columns: 1fr 1fr 1fr 1fr;
+  padding: 4rem 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 2rem;              /* separación entre mesas */
+  justify-content: center; /* centra el grid horizontalmente */
 }
+
 
 .mesa-list li {
    background-color: #1F2937;
@@ -76,10 +79,11 @@
    font-size: 1.1rem;
 }
 
+/* Mesa base (escritorio) */
 .mesa-item {
-  width: 240px;
-  height: 220px;
-  border-radius: 50%; /* Hace la mesa circular */
+  width: 220px;  /* un poco más pequeña */
+  height: 200px;
+  border-radius: 50%;
   background: url('/public/assets/mesa_madera.jpeg') center/cover no-repeat;
   display: flex;
   flex-direction: column;
@@ -114,7 +118,7 @@
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
 }
 
-/* Texto */
+/* Texto en mesa */
 .mesa-item h3 {
   font-size: 1.1rem;
   font-weight: bold;
@@ -141,12 +145,7 @@
   padding: 2px 4px;
   border-radius: 4px;
   text-align: center;
-}
-
-
-.mesa-item:hover {
-  transform: translateY(-8px) scale(1.03) rotateX(1deg) rotateY(1deg);
-  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.35);
+  word-wrap: break-word;
 }
 
 
@@ -203,7 +202,45 @@
 
 
 @media screen and (max-width: 640px) {
-    .menu-title {
-      font-size: 2.5rem;
-   }
+  .menu-title {
+    font-size: 2rem;
+  }
+
+  /* Mesas más compactas en móviles */
+  .mesa-item {
+    width: 140px;      /* antes 160px */
+    height: 130px;     /* antes 150px */
+  }
+
+  /* Nombre de la mesa */
+  .mesa-item h3 {
+    font-size: 0.8rem; 
+    line-height: 1rem; /* Evita que se corte */
+  }
+
+  /* Estado (Disponible / Ocupada) */
+  .estado-label {
+    font-size: 0.7rem;
+    line-height: 0.9rem;
+  }
+
+  /* Reservas dentro de la mesa */
+  .reserva-info-item {
+    font-size: 9px; /* Más pequeño */
+    padding: 1px 2px;
+    line-height: 0.9rem;
+    background-color: rgba(0, 0, 0, 0.75); /* Más opaco para legibilidad */
+  }
+
+  /* Grid más flexible */
+  .mesa-list {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 0.5rem;
+    justify-content: center;
+  }
 }
+
+
+
+  
+
