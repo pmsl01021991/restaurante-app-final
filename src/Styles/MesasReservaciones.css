@@ -17,11 +17,11 @@
 }
 
 .estado-label.disponible {
-  color: #22c55e;
+  color: rgb(5, 5, 5);
 }
 
 .estado-label.reservado {
-  color: #ef4444;
+  color: red;
 }
 
 .mostrar-mas-container {

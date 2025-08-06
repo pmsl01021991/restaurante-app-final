@@ -100,7 +100,7 @@
   position: absolute;
   inset: 0;
   border-radius: 50%;
-  background: rgba(0, 0, 0, 0.4); /* Oscurece para ver el texto */
+  background: radial-gradient(circle, rgba(0,0,0,0.25) 40%, rgba(0,0,0,0.05) 100%);
   z-index: 0;
 }
 
