@@ -76,6 +76,80 @@
    font-size: 1.1rem;
 }
 
+.mesa-item {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%; /* Hace la mesa circular */
+  background: url('/public/assets/mesa_madera.jpeg') center/cover no-repeat;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.3),
+              0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+.mesa-item::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.4); /* Oscurece para ver el texto */
+  z-index: 0;
+}
+
+.mesa-item * {
+  position: relative;
+  z-index: 1;
+}
+
+.mesa-item:hover {
+  transform: translateY(-8px) scale(1.05);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Texto */
+.mesa-item h3 {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 0.3rem;
+}
+
+.estado-label {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* Reservas dentro de la mesa */
+.info-reservas {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2px;
+  margin-top: 5px;
+}
+
+.reserva-info-item {
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  font-size: 11px;
+  padding: 2px 4px;
+  border-radius: 4px;
+  text-align: center;
+}
+
+
+.mesa-item:hover {
+  transform: translateY(-8px) scale(1.03) rotateX(1deg) rotateY(1deg);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.35);
+}
+
+
 .reserva-info {
   position: absolute;
   bottom: 8px;
