@@ -58,7 +58,7 @@ const Authentication = ({ onClose }) => {
                .replace(/\.+$/, '');
                
             const user = {
-               name: usuarioEncontrado.username,
+               name: nombreLimpio,
                rol: usuarioEncontrado.username === 'admin@gmail.com' ? 'admin' : 'cliente'
             };
             localStorage.setItem('user', JSON.stringify(user));
