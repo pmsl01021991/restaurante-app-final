@@ -4,7 +4,7 @@ import Footer from './Components/Footer.jsx';
 import Reservaciones from './Pages/Reservaciones.jsx';
 import ReservacionesHechas from './Pages/ReservacionesHechas.jsx';
 import Inicio from './Pages/Inicio.jsx';
-import Inicio from './Pages/Menu.jsx';
+import Menu from './Components/Menu.jsx';
 import './App.css';
 
 const App = () => {

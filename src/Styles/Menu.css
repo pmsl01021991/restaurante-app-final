@@ -1,23 +1,28 @@
+/* === ESTRUCTURA GENERAL === */
 .menu-section {
+   margin-top: 6rem; /* separación del navbar */
    padding: 60px 20px;
    background-color: #1F2937;
 }
-
+ 
+/* === TITULOS === */
 .menu-title {
    font-size: 3rem;
    color: #f97316;
+   text-align: center;
    margin-bottom: 20px;
 }
-
+ 
+ 
 .menu-title,
 .menu-subtitle {
    text-align: center;
 }
-
+ 
 .menu-subtitle {
    font-size: 20px;
 }
-
+ 
 .menu-list {
    display: grid;
    grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -27,7 +32,7 @@
    padding: 20px;
    margin-top: 50px;
 }
-
+ 
 .menu-item {
    display: flex;
    flex-direction: column;
@@ -44,31 +49,31 @@
    transition: transform .2s ease-in-out;
    text-align: center;
 }
-
+ 
 .menu-item:hover {
    transform: translateY(-5px);
 }
-
+ 
 .menu-image {
    width: 100%;
    height: 180px;
    object-fit: cover;
    margin-bottom: 10px;
 }
-
-
+ 
+ 
 .menu-item h3 {
    font-size: 1.2rem;
    margin: 10px 0 5px;
    font-weight: 600;
 }
-
+ 
 .menu-item p {
    padding: 0 1rem;
    margin: 5px;
    color: #1F2937;
 }
-
+ 
 .menu-item span {
    padding-top: 5px;
    font-size: 1.2rem;
@@ -76,7 +81,7 @@
    margin-bottom: 15px;
    font-weight: bold;
 }
-
+ 
 .menu-item .add-button {
    padding: 10px;
    background-color: #f57c00;
@@ -85,30 +90,30 @@
    border-radius: 6px;
    cursor: pointer;
 }
-
+ 
 @media screen and (max-width: 768px) {
    .menu-list {
       flex-direction: column;
       align-items: center;
    }
-
+ 
    .menu-item {
       width: 90%;
    }
 }
-
+ 
 @media screen and (max-width: 1280px) {
     .menu-list {
       grid-template-columns: 1fr 1fr 1fr;
    }
 }
-
+ 
 @media screen and (max-width: 1024px) {
     .menu-list {
       grid-template-columns: 1fr 1fr;
    }
 }
-
+ 
 @media screen and (max-width: 640px) {
     .menu-title {
       font-size: 2.5rem;
@@ -117,7 +122,7 @@
       grid-template-columns: 1fr;
    }
 }
-
+ 
 .plato-toast button {
   background: none;
   border: none;
