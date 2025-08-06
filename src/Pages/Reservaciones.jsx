@@ -203,7 +203,7 @@ const Reservaciones = () => {
                         <div className="info-reservas">
                           {reservasHechas
                             .filter(r => r.mesa === mesa.nombre)
-                            .slice(0, 6)  // 👈 Limita a 6
+                            .slice(0, 1)  
                             .map((r, index) => (
                               <div key={index} className="reserva-info-item">
                                 <strong>{r.cliente === userName ? 'Tú' : r.cliente}</strong>
