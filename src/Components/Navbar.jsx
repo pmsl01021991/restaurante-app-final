@@ -61,7 +61,7 @@ const Navbar = () => {
                      {user?.rol === 'admin' && (
                         <li><Link to="/reservaciones-hechas">Reservaciones Hechas</Link></li>
                      )}
-                     <li><Link to="/">Menú</Link></li>
+                     <li><Link to="/menu">Menú</Link></li>
                      {user ? (
                         <li><button onClick={handleLogout}>Cerrar sesión</button></li>
                      ) : (
@@ -80,7 +80,7 @@ const Navbar = () => {
                            </ul>
                         )}
                      </li>
-                     <li><Link to="/">Menú</Link></li>
+                     <li><Link to="/menu">Menú</Link></li>
                      {user ? (
                         <li><button onClick={handleLogout}>Cerrar sesión</button></li>
                      ) : (
