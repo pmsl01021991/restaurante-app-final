@@ -203,7 +203,7 @@ const Reservaciones = () => {
                         <div className="info-reservas">
                           {reservasHechas
                             .filter(r => r.mesa === mesa.nombre)
-                            .slice(0, 1)  
+                            .slice(0, 2)  
                             .map((r, index) => (
                               <div key={index} className="reserva-info-item">
                                 <strong>{r.cliente === userName ? 'Tú' : r.cliente}</strong>
@@ -211,9 +211,9 @@ const Reservaciones = () => {
                               </div>
                           ))}
 
-                          {reservasHechas.filter(r => r.mesa === mesa.nombre).length > 6 && (
+                          {reservasHechas.filter(r => r.mesa === mesa.nombre).length > 2 && (
                             <div className="reserva-info-item">
-                              +{reservasHechas.filter(r => r.mesa === mesa.nombre).length - 6} más
+                              +{reservasHechas.filter(r => r.mesa === mesa.nombre).length - 2} más
                             </div>
                           )}
                         </div>

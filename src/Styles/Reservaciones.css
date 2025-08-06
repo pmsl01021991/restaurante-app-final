@@ -81,8 +81,8 @@
 
 /* Mesa base (escritorio) */
 .mesa-item {
-  width: 220px;  /* un poco más pequeña */
-  height: 200px;
+  width: 240px;  /* un poco más pequeña */
+  height: 220px;
   border-radius: 50%;
   background: url('/public/assets/mesa_madera.jpeg') center/cover no-repeat;
   display: flex;
@@ -201,15 +201,15 @@
 }
 
 
-@media screen and (max-width: 640px) {
+@media screen and (min-width: 343px) and (max-width: 740px){
   .menu-title {
     font-size: 2rem;
   }
 
   /* Mesas más compactas en móviles */
   .mesa-item {
-    width: 140px;      /* antes 160px */
-    height: 130px;     /* antes 150px */
+    width: 200px;      /* antes 160px */
+    height: 200px;     /* antes 150px */
   }
 
   /* Nombre de la mesa */
