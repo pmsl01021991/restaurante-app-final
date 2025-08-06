@@ -195,18 +195,27 @@ const Reservaciones = () => {
                     >
                       <h3>{mesa.nombre}</h3>
                       <p className={`estado-label ${estado}`}>
-                        {estado === 'disponible' ? 'Disponible' : 'Reservado'}
+                        {reservasHechas.some(r => r.mesa === mesa.nombre)
+                          ? 'Disponible en algunos horarios'
+                          : 'Disponible en todos los horarios'}
                       </p>
                       {estado === 'reservado' && (
                         <div className="info-reservas">
                           {reservasHechas
                             .filter(r => r.mesa === mesa.nombre)
+                            .slice(0, 6)  // 👈 Limita a 6
                             .map((r, index) => (
                               <div key={index} className="reserva-info-item">
                                 <strong>{r.cliente === userName ? 'Tú' : r.cliente}</strong>
                                 <span>{r.fecha} - {r.hora}</span>
                               </div>
                           ))}
+
+                          {reservasHechas.filter(r => r.mesa === mesa.nombre).length > 6 && (
+                            <div className="reserva-info-item">
+                              +{reservasHechas.filter(r => r.mesa === mesa.nombre).length - 6} más
+                            </div>
+                          )}
                         </div>
                       )}
                     </li>
