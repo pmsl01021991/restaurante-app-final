@@ -338,8 +338,11 @@ const Reservaciones = () => {
                 <p><strong>Nombre:</strong> {userName}</p>
                 <p><strong>Plato seleccionado:</strong> {platoSeleccionado?.nombre || 'Ninguno'}</p>
                 <p><strong>Platos adicionales:</strong> {
-                  platosSeleccionados.length > 0 
-                    ? platosSeleccionados.map(p => p.nombre).join(', ') 
+                  platosSeleccionados.length > 1
+                    ? platosSeleccionados
+                          .slice(1) // excluye el primer plato
+                          .map(p => p.nombre)
+                          .join(', ')
                     : 'Ninguno'
                 }</p>
                 <p><strong>Mesa:</strong> {mesaSeleccionada?.nombre}</p>
