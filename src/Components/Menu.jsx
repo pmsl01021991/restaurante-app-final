@@ -7,7 +7,7 @@ const Menu = () => {
   const [mensaje, setMensaje] = useState('');
   const [mostrarToast, setMostrarToast] = useState(false);
 
-  // 🔹 Cargar los platos desde Render SOLO UNA VEZ
+ 
   useEffect(() => {
     fetch('https://json-backend-reservas3.onrender.com/platos')
       .then((res) => res.json())
