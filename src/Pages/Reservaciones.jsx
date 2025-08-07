@@ -103,61 +103,66 @@ const Reservaciones = () => {
 
 
   const confirmarReserva = () => {
-      if (!numero.trim()) return alert('Ingresa tu número.');
-
-      // Validar si ya existe reserva con misma mesa/fecha/hora
-      const existeConflicto = reservasHechas.some(r =>
-        r.mesa === mesaSeleccionada?.nombre &&
-        r.fecha === fechaSeleccionada?.toISOString().split('T')[0] &&
-        r.hora === horaSeleccionada
-      );
-
-      if (existeConflicto) {
-        mostrarToast('⚠️ Esta mesa ya está reservada en ese horario.');
-        return;
-      }
-
-      const nuevaReserva = {
-        cliente: userName,
-        plato: platosSeleccionados.map(p => p.nombre).join(', '),
-        mesa: mesaSeleccionada?.nombre,
-        fecha: fechaSeleccionada?.toISOString().split('T')[0],
-        hora: horaSeleccionada,
-        numero,
-        comensales
-      };
-
-
-
-    fetch('https://json-backend-reservas3.onrender.com/reservas', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(nuevaReserva)
-    })
-      .then(res => res.json())
-      .then(data => {
-        const nuevasReservas = [...reservasHechas, data];
-        setReservasHechas(nuevasReservas);
-        actualizarEstadoMesas(nuevasReservas);
-        mostrarToast('✅ Reservación confirmada.');
-
-        // Borrar los platos seleccionados del backend
-        platosSeleccionados.forEach(plato => {
+  if (!numero.trim()) return alert('Ingresa tu número.');
+ 
+  // Verifica si la mesa ya está reservada
+  const existeConflicto = reservasHechas.some(r =>
+    r.mesa === mesaSeleccionada?.nombre &&
+    r.fecha === fechaSeleccionada?.toISOString().split('T')[0] &&
+    r.hora === horaSeleccionada
+  );
+ 
+  if (existeConflicto) {
+    mostrarToast('⚠️ Esta mesa ya está reservada en ese horario.');
+    return;
+  }
+ 
+  const nuevaReserva = {
+    cliente: userName,
+    plato: platosSeleccionados.map(p => p.nombre).join(', '),
+    mesa: mesaSeleccionada?.nombre,
+    fecha: fechaSeleccionada?.toISOString().split('T')[0],
+    hora: horaSeleccionada,
+    numero,
+    comensales
+  };
+ 
+  // 👉 Guardar la nueva reserva
+  fetch('https://json-backend-reservas3.onrender.com/reservas', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(nuevaReserva)
+  })
+    .then(res => res.json())
+    .then(data => {
+      const nuevasReservas = [...reservasHechas, data];
+      setReservasHechas(nuevasReservas);
+      actualizarEstadoMesas(nuevasReservas);
+      mostrarToast('✅ Reservación confirmada.');
+ 
+      // 👉 Eliminar todos los platos seleccionados del backend
+      Promise.all(
+        platosSeleccionados.map(plato =>
           fetch(`https://json-backend-reservas3.onrender.com/platosSeleccionados/${plato.id}`, {
             method: 'DELETE'
-          });
-        });
-
-        // Limpiar estado
-        setMostrarPaso('mesas');
-        setNumero('');
-        setMesaSeleccionada(null);
-        setHoraSeleccionada('');
-        setFechaSeleccionada(null);
+          })
+        )
+      ).then(() => {
+        // 👉 Limpiar estado de platos en frontend también
         setPlatosSeleccionados([]);
-      })
-      .catch(err => console.error('Error al guardar reserva', err));
-  };
+        setPlatoSeleccionado(null);
+      });
+ 
+      // 👉 Reiniciar el flujo de reserva
+      setMostrarPaso('mesas');
+      setNumero('');
+      setMesaSeleccionada(null);
+      setHoraSeleccionada('');
+      setFechaSeleccionada(null);
+      setComensales('');
+    })
+    .catch(err => console.error('Error al guardar reserva', err));
+};
 
   const mostrarToast = (mensaje) => {
     setToastMensaje(mensaje);
