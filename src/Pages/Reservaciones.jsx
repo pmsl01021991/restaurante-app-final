@@ -74,7 +74,7 @@ const Reservaciones = () => {
        } 
     }, []);
 
-    // Recalcula el estado de las mesas cuando cambian fecha, hora o reservas
+   
     useEffect(() => {
       actualizarEstadoMesas(reservasHechas);
     }, [fechaSeleccionada, horaSeleccionada, reservasHechas]);
